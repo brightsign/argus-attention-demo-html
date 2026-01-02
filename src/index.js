@@ -94,11 +94,6 @@ function fetchImage() {
         };
         tempImage.src = base64Image;
       });
-    } else if (Date.now() - lastImageUpdateTime > timeout) {
-      console.log('No image update in the last 5 seconds');
-      lastImageUpdateTime = Date.now(); // reset
-      imageElement.src = 'none';
-      imageElement.style.display = 'none';
     }
   });
 }
