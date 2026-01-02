@@ -90,7 +90,6 @@ function fetchImage() {
         const tempImage = new Image();
         tempImage.onload = () => {
           imageElement.src = base64Image;
-          imageElement.style.display = 'block';
         };
         tempImage.src = base64Image;
       });
