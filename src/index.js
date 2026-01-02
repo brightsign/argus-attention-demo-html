@@ -25,9 +25,6 @@ EDIT BELOW FOR PRESENTATION CHANGES
 --------------------------------------------------------------------------------------------------------------------------------
 */
 
-const IMAGE_LOCATION_TOP = 50;
-const image_location_top = IMAGE_LOCATION_TOP;
-const image_location_left = 90;
 const vidPath = '/meet-brightsign.mp4'
 
 /*
@@ -44,11 +41,6 @@ function main() {
   // Set the video zone src to the VideoPath
   const videoZone = document.getElementById('video');
   videoZone.src = vidPath;
-
-  // Set the image location on the screen
-  const imageContainer = document.getElementById('image-container');
-  imageContainer.style.left = image_location_left + '%';
-  imageContainer.style.top = image_location_top + '%';
 
   // Bind the UDP server to the specified port
   udpServer.bind(udpPort, () => {
