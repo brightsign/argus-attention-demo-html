@@ -4,7 +4,6 @@ const dgram = require('dgram');
 
 const imagePath = '/tmp/output.jpg';
 const imageElement = document.getElementById('image');
-const udpMessageElement = document.getElementById('udp-messages');
 let lastImageUpdateTime = Date.now(); // Initialize to current time to display the first image
 
 const timeout = 5000; // ms
@@ -29,7 +28,7 @@ EDIT BELOW FOR PRESENTATION CHANGES
 const IMAGE_LOCATION_TOP = 50;
 const image_location_top = IMAGE_LOCATION_TOP;
 const image_location_left = 90;
-const iframe_location_left = 10;
+const iframe_location_left = 25;
 const vidPath = '/meet-brightsign.mp4'
 
 /*
@@ -154,13 +153,5 @@ function handleUdpMessage(msg) {
     }
   }
 
-  // Update the banner with the new values
-  updateBanner();
 }
 
-// Function to update the displayed values
-function updateBanner() {
-  udpMessageElement.textContent = `
-    ${attending_faces} out of ${total_faces} faces are watching the session.
-  `;
-}

@@ -41,7 +41,7 @@
             top: 50%;
             left: 10%;
             transform: translate(-50%, 0);
-            width: 100%;
+            width: 40%;
             height: 40%;
             display: flex;
             justify-content: center;
@@ -51,23 +51,6 @@
             width: 100%;
             height: 100%;
             border: none;
-        }
-        #udp-messages {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 5%;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border-top: 1px solid #ccc;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            font-size: 32px;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
         }
     </style>
     <script type="text/javascript" src="./bundle.js"></script>
@@ -85,6 +68,5 @@
     <div id="iframe-container">
         <iframe src="http://localhost:3000/d/argus-analytics-main/argus-people-analytics?orgId=1&from=now-1h&to=now&timezone=browser&var-datasource=prometheus&var-device=$__all&var-stream=$__all&refresh=10s&kiosk"></iframe>
     </div>
-    <div id="udp-messages">Waiting for UDP messages...</div>
 </body>
 </html>
