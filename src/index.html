@@ -36,6 +36,22 @@
             max-height: 100%;
             display: none; /* Hide the image by default */
         }
+        #iframe-container {
+            position: fixed;
+            top: 50%;
+            left: 10%;
+            transform: translate(-50%, 0);
+            width: 100%;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
         #udp-messages {
             position: fixed;
             bottom: 0;
@@ -65,6 +81,9 @@
     </div>
     <div id="image-container">
         <img id="image" alt="Live Image">
+    </div>
+    <div id="iframe-container">
+        <iframe src="http://localhost:3000/d/argus-analytics-main/argus-people-analytics?orgId=1&from=now-1h&to=now&timezone=browser&var-datasource=prometheus&var-device=$__all&var-stream=$__all&refresh=10s&kiosk"></iframe>
     </div>
     <div id="udp-messages">Waiting for UDP messages...</div>
 </body>
