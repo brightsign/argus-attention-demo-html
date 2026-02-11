@@ -4,7 +4,7 @@ const dgram = require('dgram');
 
 const imagePath = '/tmp/output.jpg';
 const imageElement = document.getElementById('image');
-let lastImageUpdateTime = Date.now(); // Initialize to current time to display the first image
+let lastImageUpdateTime = 0; // Initialize to 0 to display the existing image on startup
 
 const timeout = 5000; // ms
 
@@ -72,10 +72,17 @@ function fetchImage() {
           return;
         }
 
+        if (data.length === 0) {
+          return;
+        }
+
         const base64Image = `data:image/jpeg;base64,${data.toString('base64')}`;
         const tempImage = new Image();
         tempImage.onload = () => {
           imageElement.src = base64Image;
+        };
+        tempImage.onerror = () => {
+          console.log('Failed to decode image, keeping current display');
         };
         tempImage.src = base64Image;
       });
