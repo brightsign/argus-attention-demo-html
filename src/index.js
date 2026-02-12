@@ -26,7 +26,7 @@ EDIT BELOW FOR PRESENTATION CHANGES
 */
 
 const vidPath = '/meet-brightsign.mp4'
-const grafanaDashboardPath = '/d/your-dashboard-uid/your-dashboard-name?orgId=1&kiosk'
+const grafanaDashboardPath = '/d/argus-analytics-main/argus-people-analytics?orgId=1&from=now-1h&to=now&timezone=browser&var-datasource=prometheus&var-device=$__all&var-stream=$__all&refresh=5s&kiosk'
 
 /*
 --------------------------------------------------------------------------------------------------------------------------------
