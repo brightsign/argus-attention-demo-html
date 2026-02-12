@@ -26,12 +26,20 @@ EDIT BELOW FOR PRESENTATION CHANGES
 */
 
 const vidPath = '/meet-brightsign.mp4'
+const grafanaDashboardPath = '/d/your-dashboard-uid/your-dashboard-name?orgId=1&kiosk'
 
 /*
 --------------------------------------------------------------------------------------------------------------------------------
 EDIT ABOVE FOR PRESENTATION CHANGES
 --------------------------------------------------------------------------------------------------------------------------------
 */
+
+function isXT5Device() {
+  const params = new URLSearchParams(window.location.search);
+  const model = params.get('model') || '';
+  console.log('Detected device model:', model);
+  return model.toUpperCase().startsWith('XT');
+}
 
 function main() {
   console.log('In Main - Remote Liftoff!');
@@ -41,6 +49,17 @@ function main() {
   // Set the video zone src to the VideoPath
   const videoZone = document.getElementById('video');
   videoZone.src = vidPath;
+
+  if (isXT5Device()) {
+    const grafanaUrl = 'http://localhost:3000' + grafanaDashboardPath;
+    const grafanaContainer = document.getElementById('grafana-container');
+    const grafanaIframe = document.getElementById('grafana-iframe');
+    grafanaIframe.src = grafanaUrl;
+    grafanaContainer.style.display = 'block';
+    console.log('XT5 detected - Grafana dashboard enabled:', grafanaUrl);
+  } else {
+    console.log('Non-XT5 device - Grafana dashboard disabled');
+  }
 
   // Bind the UDP server to the specified port
   udpServer.bind(udpPort, () => {

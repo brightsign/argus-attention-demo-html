@@ -39,11 +39,15 @@ function CreateHTMLWidget(mp as object) as object
     'uncomment this section for horizontal
     r = CreateObject("roRectangle",0,0,1920,1080)
 
+	' Detect device model and pass as URL parameter
+	di = CreateObject("roDeviceInfo")
+	model = di.GetModel()
+
 	' Create HTML Widget config
 	'https://brightsign.atlassian.net/wiki/spaces/DOC/pages/370672896/roHtmlWidget#Initialization-Parameters
 	config = {
 		nodejs_enabled: true
-		url: "file:///sd:/dist/index.html"
+		url: "file:///sd:/dist/index.html?model=" + model
 		inspector_server: {
 			port: 2999
 		}

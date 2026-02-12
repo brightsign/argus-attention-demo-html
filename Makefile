@@ -1,3 +1,8 @@
+.DEFAULT_GOAL := help
+
+help:
+	@grep -E '^[a-zA-Z_-]+:' $(MAKEFILE_LIST) | grep -v '^help:' | sed 's/:.*//' | sort
+
 prep:
 	npm install
 
