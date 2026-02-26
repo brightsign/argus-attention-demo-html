@@ -12,6 +12,9 @@ const imageUpdateInterval = 30; // ms - 30 fps
 const oversampling_rate = 1; // sample at N times the update frequency
 const fetchInterval = imageUpdateInterval / oversampling_rate;
 
+let latestFrameBuffer = null;
+let isRenderLoopRunning = false;
+
 const udpPort = 5002;
 const udpServer = dgram.createSocket('udp4');
 
@@ -45,6 +48,9 @@ function main() {
   console.log('In Main - Remote Liftoff!');
   // Fetch the image fetchInterval times per second
   setInterval(fetchImage, fetchInterval);
+
+  // Start the render loop using requestAnimationFrame
+  startRenderLoop();
 
   // Set the video zone src to the VideoPath
   const videoZone = document.getElementById('video');
@@ -98,15 +104,30 @@ function fetchImage() {
         const base64Image = `data:image/jpeg;base64,${data.toString('base64')}`;
         const tempImage = new Image();
         tempImage.onload = () => {
-          imageElement.src = base64Image;
+          latestFrameBuffer = base64Image;
         };
         tempImage.onerror = () => {
-          console.log('Failed to decode image, keeping current display');
+          console.log('Failed to decode image, skipping frame');
         };
         tempImage.src = base64Image;
       });
     }
   });
+}
+
+function startRenderLoop() {
+  if (!isRenderLoopRunning) {
+    isRenderLoopRunning = true;
+    renderLoop();
+  }
+}
+
+function renderLoop() {
+  if (latestFrameBuffer !== null) {
+    imageElement.src = latestFrameBuffer;
+  }
+
+  requestAnimationFrame(renderLoop);
 }
 
 function handleUdpMessage(msg) {
