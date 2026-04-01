@@ -60,7 +60,7 @@ sd
 
 The makefile automatically downloads and copies the BSMP to the sd folder.  However, if you want to manually do this step:
 
-* download the [argus-attention detection bsfw installation package](https://github.com/brightsign/brightsign-npu-argus-attention-extension/releases/download/v0.1.5-alpha/cobra-standalone-npu_argus-attention-0.1.5-alpha.bsfw)
+* download the [argus-attention detection bsfw installation package](https://github.com/BrightSign-Playground/argus-audience-measurement-extension/releases/download/v0.5.0/cobra-standalone-npu_argus-1775002227.bsfw)
 * copy the file to the root of the SD card
 * it will be automatically installed on the next boot
 
