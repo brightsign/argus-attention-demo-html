@@ -1,0 +1,157 @@
+{
+    "_comment_input_source": "Select 'rtsp', 'usb', or 'file' for your input source",
+    "input_source": "usb",
+    "_comment_device_id": "Device identifier for MQTT messages. Leave empty to auto-detect from MAC address",
+    "device_id": "",
+    "input": {
+        "rtsp_url": "rtsp://192.168.4.30:8554/live",
+        "usb_device": "/dev/video1",
+        "file_path": "/storage/sd/faces.mp4",
+        "usb": {
+            "width": 640,
+            "height": 480,
+            "fps": 30
+        },
+        "rtsp": {
+            "latency_ms": 100
+        },
+        "file": {
+            "loop": true
+        }
+    },
+    "input_source_priority": "config",
+    "primary_model": {
+        "name": "retinaface",
+        "model_path": "model/retinaface.rknn",
+        "input_size": [
+            320,
+            320
+        ],
+        "npu_core": 0,
+        "norm": {
+            "mean": [
+                123.675,
+                116.28,
+                103.53
+            ],
+            "std": [
+                58.395,
+                57.12,
+                57.375
+            ]
+        },
+        "conf_threshold": 0.3,
+        "nms_threshold": 0.45
+    },
+    "secondary_models": [
+        {
+            "name": "yolox",
+            "model_path": "model/yolox_s.rknn",
+            "input_size": [
+                640,
+                640
+            ],
+            "npu_core": 0,
+            "norm": {
+                "mean": [
+                    0,
+                    0,
+                    0
+                ],
+                "std": [
+                    1,
+                    1,
+                    1
+                ]
+            },
+            "conf_threshold": 0.5,
+            "nms_threshold": 0.45
+        }
+    ],
+    "processing": {
+        "th": {
+            "score": 0.5,
+            "iou": 0.45
+        },
+        "nms_max_dets": 100
+    },
+    "runtime": {
+        "target_fps": 30,
+        "heartbeat_ms": 1000
+    },
+    "publishers": [
+        {
+            "kind": "mqtt",
+            "mqtt": {
+                "host": "localhost", 
+                "port": 1883,
+                "topic": "bs/argus/analytics",
+                "qos": 0,
+                "retain": false,
+                "period_ms": 1000
+            }
+        }
+    ],
+    "log_level": "debug",
+    "log_dir": "/storage/sd/logs",
+    "log_json": true,
+    "enable_frame_output": true,
+    "output_dir": "/tmp",
+    "blur_faces": true,
+    "blur_method": "pixelate",
+    "blur_intensity": 12,
+    "test_face_only": false,
+    "test_yolo_only": false,
+    "_input_source_notes": {
+        "description": "Input source selection and configuration",
+        "input_source": "Which input to use: 'rtsp', 'usb', or 'file'",
+        "note": "Set input_source to your desired input type. Configure all three sources so you can easily switch between them",
+        "examples": {
+            "rtsp": "Network RTSP camera stream",
+            "usb": "USB webcam (e.g., /dev/video0)",
+            "file": "Video file for testing (e.g., /path/to/video.mp4)"
+        },
+        "usage": "Change 'input_source' value to switch between inputs without editing URLs/paths"
+    },
+    "_input_source_priority_notes": {
+        "description": "Controls where video input configuration is read from",
+        "config": "Use 'input' section from this config.json file (default, easier for deployment)",
+        "registry": "Use BrightSign registry value 'bsext-gaze-video-device' (flexible for runtime changes)",
+        "priority": "CLI args > [config or registry based on this setting] > [other] > auto-detect",
+        "note": "Set to 'config' to use config.json, or 'registry' to use BrightSign registry",
+        "example_registry": "registry write extension bsext-gaze-video-device rtsp://192.168.0.123:554/stream1"
+    },
+    "_test_mode_notes": {
+        "description": "Test mode configuration for debugging individual models",
+        "test_face_only": "Set to true to run ONLY RetinaFace (disable YOLOX). Default: false",
+        "test_yolo_only": "Set to true to run ONLY YOLOX (disable RetinaFace). Default: false",
+        "note": "Both can be false (default) to run both models in parallel on separate NPU cores (production mode)",
+        "usage": "See TEST_MODES.md for detailed usage examples and debugging workflows"
+    },
+    "_log_level_notes": {
+        "description": "Controls verbosity of logging output",
+        "options": {
+            "debug": "Most verbose - all logs including DEBUG messages (use for development/troubleshooting)",
+            "info": "General information - INFO, WARN, ERROR, and CRITICAL messages (recommended default)",
+            "warn": "Warnings and errors only - WARN, ERROR, and CRITICAL messages (production mode)",
+            "error": "Errors only - ERROR and CRITICAL messages (minimal logging)"
+        },
+        "note": "Change log_level without recompiling. Logs are written to log_dir location.",
+        "default": "info"
+    },
+    "_blur_faces_notes": {
+        "description": "Face blurring for privacy protection in output frames",
+        "defaults": "All blur settings are optional. Defaults: blur_faces=false, blur_method=pixelate, blur_intensity=12",
+        "blur_faces": "Set to true to enable face blurring (default: false)",
+        "blur_method": {
+            "pixelate": "Fast mosaic/pixelation effect (default, recommended) - irreversible anonymization",
+            "gaussian": "Smooth blur effect - use kernel size >= 71 for effective anonymization"
+        },
+        "blur_intensity": {
+            "pixelate": "Block size in pixels (4-32). Smaller = more detail visible. Default: 12",
+            "gaussian": "Kernel size (31-99, must be odd). Larger = more blur. Recommended: 71"
+        },
+        "note": "Blur is applied AFTER gaze detection, only affecting output images written to output_dir",
+        "minimal_config": "To enable with defaults, just add: \"blur_faces\": true"
+    }
+}

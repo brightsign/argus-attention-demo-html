@@ -8,7 +8,6 @@ yarn.lock
 # Build outputs
 dist/
 build/
-sd/
 *.bsfw
 
 # IDE and editor files
