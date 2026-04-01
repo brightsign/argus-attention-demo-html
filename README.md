@@ -5,7 +5,6 @@ This demo HTML/JS application showcases the tech behind the NPU that is enabled 
 - Full motion video
 - A "picture-in-picture" of what the camera AI "sees" - including bounding boxes around faces
   - faces looking at the screen will be bounded in green, otherwise red
-- A live update of the incoming UDP messages at the bottom of the screen
 
 ## Just Use It!
 
@@ -13,6 +12,7 @@ This demo HTML/JS application showcases the tech behind the NPU that is enabled 
 2. copy the contents of the 'sd' folder to an SD card
 3. copy the [BSMP](https://github.com/brightsign/brightsign-npu-argus-attention-extension/releases/download/v0.1.5-alpha/cobra-standalone-npu_argus-attention-0.1.5-alpha.bsfw) onto the SD card
 4. place the SD card into the player and boot
+5. Observe!
 
 ## Prerequisites
 
