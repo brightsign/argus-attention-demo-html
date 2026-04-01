@@ -1,0 +1,1 @@
+- inspect the javascript code that displays the image from /tmp - it should always show the last image even if there is no new image to show.
