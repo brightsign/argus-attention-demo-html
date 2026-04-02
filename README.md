@@ -8,9 +8,9 @@ This demo HTML/JS application showcases the tech behind the NPU that is enabled 
 
 ## Just Use It!
 
-1. ensure you have all the pre-requisites per the [BSMP](https://github.com/brightsign/brightsign-npu-argus-attention-extension)
+1. ensure you have all the pre-requisites per the [BSMP](https://github.com/brightsign/argus-audience-measurement-extension)
 2. copy the contents of the 'sd' folder to an SD card
-3. copy the [BSMP](https://github.com/brightsign/brightsign-npu-argus-attention-extension/releases/download/v0.1.5-alpha/cobra-standalone-npu_argus-attention-0.1.5-alpha.bsfw) onto the SD card
+3. copy the [BSMP](https://github.com/brightsign/argus-audience-measurement-extension/releases/download/v0.5.0/cobra-standalone-npu_argus-1775002227.bsfw) onto the SD card
 4. place the SD card into the player and boot
 5. Observe!
 
